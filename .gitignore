@@ -1,0 +1,61 @@
+venv/
+.env
+__pycache__/
+*.pyc
+db.sqlite3
+staticfiles/
+media/
+.idea/
+.vscode/
+
+# Utility/import scripts (not needed for deployment)
+import_transitions.py
+import_backgrounds.py
+import_backgrounds_v2.py
+import_backgrounds_v3.py
+list_cats.py
+update_cats_ru.py
+verify_cats.py
+copy_icons.py
+cats.json
+cats_list.txt
+
+# Original large source files
+original_source/
+
+# Large video/audio formats (GitHub 100MB limit)
+*.zip
+*.ZIP
+*.mp4
+*.MP4
+*.MOV
+*.mov
+*.avi
+*.AVI
+*.mkv
+*.MKV
+*.mp3
+*.MP3
+*.flac
+*.FLAC
+*.wav
+*.WAV
+*.pdf
+*.PDF
+
+# Static media: materials (videos, audio, backgrounds) - too large for GitHub
+static/materials/
+
+# Music files - too large for GitHub
+static/music/
+static/img/music/
+
+# Team photos - too large for GitHub
+static/img/team/
+
+# Large menu preview images in static/img (each 3-5MB)
+static/img/menu-backgrounds.png
+static/img/menu-sounds.png
+static/img/menu-transitions.png
+static/img/menu-visual.png
+static/img/icons/puzzle.png
