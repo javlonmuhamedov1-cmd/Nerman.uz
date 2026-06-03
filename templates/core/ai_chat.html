@@ -1,0 +1,93 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}AI Chat — NERMAN.AI{% endblock %}
+
+{% block extra_head %}
+<!-- ... reuse styles ... -->
+<style>
+    .chat-layout { display: flex; height: calc(100vh - 80px); gap: 20px; padding: 20px; }
+    .chat-sidebar { width: 320px; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); border-radius: 40px; border: 1px solid rgba(21, 123, 255, 0.1); display: flex; flex-direction: column; overflow: hidden; }
+    .chat-main { flex: 1; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(10px); border-radius: 40px; border: 2px solid white; display: flex; flex-direction: column; position: relative; }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="chat-layout">
+    <!-- Sidebar: Chat History -->
+    <aside class="chat-sidebar" data-aos="fade-right">
+        <div class="p-6 border-b border-slate-100">
+            <a href="{% url 'create_chat' %}" class="w-full py-4 bg-[#157BFF] text-white rounded-2xl font-bold flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transition-all">
+                <i class="fas fa-plus"></i>
+                <span>{{ t.new_chat }}</span>
+            </a>
+        </div>
+        
+        <div class="flex-1 overflow-y-auto p-4 space-y-2">
+            <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 px-4">{{ t.your_chats }}</div>
+            {% for chat in chats %}
+            <a href="{% url 'ai_chat' chat.id %}" class="block p-4 rounded-2xl {% if chat.id == active_chat.id %}bg-blue-50 border-2 border-[#157BFF]/20 text-[#157BFF]{% else %}hover:bg-slate-50 text-slate-600{% endif %} transition-all">
+                <div class="font-bold truncate">{{ chat.title }}</div>
+                <div class="text-[10px] opacity-50">{{ chat.updated_at|timesince }} ago</div>
+            </a>
+            {% endfor %}
+        </div>
+
+        <!-- User Profile Quick Link -->
+        <div class="p-6 bg-slate-50/50">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full border-2 border-[#157BFF] bg-white overflow-hidden shadow-md">
+                    <img src="{{ profile.avatar_url|default:'/assets/img/default-avatar.png' }}" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <div class="font-bold text-slate-800 text-sm">{{ user.username }}</div>
+                    <div class="text-[10px] text-slate-400 font-bold uppercase">{{ profile.subscription_type }}</div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Chat Window -->
+    <main class="chat-main" data-aos="fade-up">
+        {% if active_chat %}
+        <!-- Messages Area -->
+        <div class="flex-1 overflow-y-auto p-8 space-y-8" id="chat-messages">
+            {% for msg in messages %}
+            <div class="flex {% if msg.role == 'user' %}justify-end{% endif %}">
+                <div class="max-w-[80%] {% if msg.role == 'user' %}bg-[#157BFF] text-white rounded-[30px] rounded-tr-none{% else %}bg-white border-2 border-slate-50 text-slate-800 rounded-[30px] rounded-tl-none{% endif %} p-6 shadow-sm">
+                    <p class="leading-relaxed">{{ msg.content }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <div class="flex flex-col items-center justify-center h-full text-center space-y-6">
+                <div class="w-24 h-24 rounded-[30px] bg-blue-50 flex items-center justify-center text-[#157BFF] text-4xl shadow-inner">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">{{ t.empty_chat_title }}</h2>
+                    <p class="text-slate-500 max-w-sm mx-auto">{{ t.empty_chat_text }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Input Area -->
+        <div class="p-8 bg-white/80 border-t border-slate-100 rounded-b-[40px]">
+            <form action="#" class="relative flex items-center">
+                <textarea rows="1" class="w-full bg-slate-100 border-none rounded-[30px] py-6 px-8 pr-20 text-slate-800 font-medium focus:ring-2 focus:ring-[#157BFF] transition-all resize-none overflow-hidden" 
+                    placeholder="{{ t.chat_placeholder }}" id="chat-input"></textarea>
+                <button type="submit" class="absolute right-4 w-12 h-12 bg-[#157BFF] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+        {% else %}
+        <div class="flex-1 flex items-center justify-center">
+            <a href="{% url 'create_chat' %}" class="px-10 py-5 bg-[#157BFF] text-white rounded-[30px] font-bold text-xl shadow-2xl hover:scale-105 transition-all">
+                {{ t.new_chat }}
+            </a>
+        </div>
+        {% endif %}
+    </main>
+</div>
+{% endblock %}

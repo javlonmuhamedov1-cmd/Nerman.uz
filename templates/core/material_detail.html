@@ -1,0 +1,296 @@
+{% extends 'core/base.html' %}
+{% block body_class %}bg-[#0056D2] text-white{% endblock %}
+{% load static %}
+
+{% block title %}{{ material.name }} — NERMAN.AI{% endblock %}
+
+{% block extra_head %}
+<style>
+    body {
+        background: linear-gradient(180deg, #001F3F 0%, #157BFF 100%) !important;
+        background-attachment: fixed !important;
+        color: white !important;
+        min-height: 100vh;
+    }
+
+    #stars-container,
+    .homepage-blobs {
+        display: none !important;
+    }
+
+    .detail-container {
+        padding: 10px 20px;
+        max-width: 500px;
+        margin: 0 auto;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .back-btn {
+        font-size: 24px;
+        color: white;
+        /* Restored white for dark top */
+        text-decoration: none;
+        display: inline-block;
+        margin-bottom: 20px;
+        padding: 5px;
+    }
+
+    .preview-card {
+        background: #1877F2;
+        /* Lighter blue for the footer area */
+        border-radius: 32px;
+        overflow: hidden;
+        margin-bottom: 25px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .preview-main {
+        aspect-ratio: 1 / 1;
+        background: #001F3F;
+        /* Deep blue preview background */
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .preview-main img,
+    .preview-main video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .heart-btn {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        width: 44px;
+        height: 44px;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(10px);
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .heart-btn i {
+        color: white;
+        font-size: 18px;
+    }
+
+    .info-footer {
+        padding: 20px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .info-title {
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+    }
+
+    .info-menu {
+        font-size: 24px;
+        opacity: 0.8;
+    }
+
+    .section-label {
+        font-size: 14px;
+        font-weight: 700;
+        color: white;
+        /* Bottom part is dark blue, so text should be white */
+        opacity: 0.9;
+        margin-bottom: 15px;
+        margin-top: 25px;
+        display: block;
+    }
+
+    .download-btn {
+        width: 100%;
+        background: #003380;
+        /* Deep blue button */
+        border: 1.5px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        padding: 20px;
+        color: white;
+        font-size: 24px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-bottom: 20px;
+        text-decoration: none;
+    }
+
+    .download-btn:active {
+        transform: scale(0.98);
+        background: #002255;
+    }
+
+    .tags-container {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .tag {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1.5px solid rgba(255, 255, 255, 0.4);
+        padding: 12px 25px;
+        border-radius: 50px;
+        font-size: 14px;
+        font-weight: 700;
+        color: white;
+        white-space: nowrap;
+    }
+
+    .author-section {
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        padding-top: 20px;
+        margin-top: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .author-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .author-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .author-name {
+        font-weight: 700;
+        font-size: 16px;
+        display: block;
+        color: white;
+    }
+
+    .author-stats {
+        font-size: 11px;
+        color: white;
+        opacity: 0.8;
+    }
+
+    .follow-btn {
+        background: #1877F2;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 10px 20px;
+        border-radius: 50px;
+        font-size: 12px;
+        font-weight: 700;
+        color: white;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    /* Heart Active State */
+    .heart-btn.active {
+        background: #FF2D55;
+        border-color: #FF2D55;
+    }
+
+    .heart-btn.active i {
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="detail-container">
+    <a href="javascript:history.back()" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+    </a>
+
+    <div class="preview-card">
+        <div class="preview-main">
+            {% if '.mp4' in material.image_url or '.webm' in material.image_url or '.mov' in material.image_url %}
+            <video src="{{ material.image_url }}" autoplay muted loop playsinline></video>
+            {% else %}
+            <img src="{{ material.image_url }}" alt="{{ material.name }}">
+            {% endif %}
+
+            <div class="heart-btn {% if user in material.likes.all %}active{% endif %}"
+                onclick="toggleLike(event, {{ material.pk }})">
+                <i class="fa-solid fa-heart"></i>
+            </div>
+        </div>
+        <div class="info-footer">
+            <span class="info-title">{{ material.name|default:"Education" }}</span>
+            <span class="info-menu"><i class="fa-solid fa-ellipsis-vertical"></i></span>
+        </div>
+    </div>
+
+    <a href="{{ material.image_url }}" download class="download-btn">
+        <i class="fa-solid fa-download"></i> Скачать
+    </a>
+
+    <span class="section-label">Рекомендации</span>
+    <div class="tags-container">
+        <div class="tag">Mouse Click</div>
+        <div class="tag">UI Pop</div>
+        <div class="tag">Bubble</div>
+    </div>
+
+    <span class="section-label">Автор</span>
+    <div class="author-section">
+        <div class="author-info">
+            <img src="{% static 'img/avatar-baxtiyorov.png' %}" alt="Author" class="author-avatar"
+                onerror="this.src='/static/img/avatar-placeholder.png'">
+            <div>
+                <span class="author-name">Baxtiyorov</span>
+                <span class="author-stats">Ещё 12 его работ...</span>
+            </div>
+        </div>
+        <a href="{% url 'author_profile' username='Baxtiyorov' %}" class="follow-btn">Подписаться на автора</a>
+    </div>
+</div>
+
+<script>
+    async function toggleLike(event, materialId) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const btn = event.currentTarget;
+        try {
+            const response = await fetch(`/material/${materialId}/like/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                if (data.liked) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            } else if (response.status === 403) {
+                window.location.href = "{% url 'login' %}";
+            }
+        } catch (error) {
+            console.error('Error toggling like:', error);
+        }
+    }
+</script>
+{% endblock %}

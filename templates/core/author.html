@@ -1,0 +1,68 @@
+{% extends "core/base.html" %}
+{% block title %}NERMAN.AI — Профиль Автора{% endblock %}
+{% block body %}
+<div class="profile-page">
+    <!-- MOBILE HEADER -->
+    <header class="mobile-header">
+        <a href="{% url 'landing' %}" class="header-icon">🏠</a>
+        <div class="header-title">Страница Автора</div>
+        <a href="{% url 'profile' %}" class="header-icon">👤</a>
+    </header>
+
+    <!-- AUTHOR HEADER -->
+    <div class="profile-header">
+        <div class="profile-avatar">👨🏼‍💻</div>
+        <div class="profile-name">Baxtiyorov</div>
+        <div class="profile-handle">
+            @thePanTheR23
+            <span class="copy-icon">📋</span>
+        </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="profile-stats">
+        <div class="stat-item">
+            <div class="stat-number">44</div>
+            <div class="stat-label">Подписки</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">77</div>
+            <div class="stat-label">Подписчиков</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">99</div>
+            <div class="stat-label">Лайки</div>
+        </div>
+    </div>
+
+    <!-- GRID OUTLINE -->
+    <div class="grid-outline">
+        <div class="element-grid">
+            <div class="element-card">
+                <div class="element-icon">🎁</div>
+                <div class="element-label">Цифра</div>
+            </div>
+            <div class="element-card">
+                <div class="element-icon">🎁</div>
+                <div class="element-label">Цифра</div>
+            </div>
+            <div class="element-card">
+                <div class="element-icon">🎁</div>
+                <div class="element-label">Цифра</div>
+            </div>
+            <div class="element-card">
+                <div class="element-icon">∨</div>
+                <div class="element-label">Подробнее</div>
+            </div>
+            <div class="element-card">
+                <div class="element-icon">📞</div>
+                <div class="element-label">Телефон</div>
+            </div>
+            <div class="element-card">
+                <div class="element-icon">⊖</div>
+                <div class="element-label">Ссылка</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

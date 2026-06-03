@@ -1,0 +1,293 @@
+{% extends 'core/base.html' %}
+{% block body_class %}deep-blue-theme text-white{% endblock %}
+{% load static %}
+
+{% block title %}{{ author_name }} — NERMAN.AI{% endblock %}
+
+{% block extra_head %}
+<style>
+    body {
+        background-color: #0056D2 !important;
+        color: white !important;
+    }
+
+    #stars-container,
+    .homepage-blobs {
+        display: none !important;
+    }
+
+    .profile-container {
+        padding: 20px;
+        max-width: 500px;
+        margin: 0 auto;
+        font-family: 'Inter', sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .back-nav {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 20px;
+    }
+
+    .back-btn {
+        font-size: 24px;
+        color: white;
+        text-decoration: none;
+    }
+
+    .avatar-wrapper {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        margin-bottom: 20px;
+    }
+
+    .avatar-img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 4px solid rgba(255, 255, 255, 0.2);
+        object-fit: cover;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .author-title {
+        font-size: 28px;
+        font-weight: 800;
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .author-username {
+        font-size: 16px;
+        opacity: 0.8;
+        font-weight: 500;
+        margin-bottom: 30px;
+    }
+
+    .stats-row {
+        display: flex;
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+
+    .stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .stat-value {
+        font-size: 22px;
+        font-weight: 800;
+    }
+
+    .stat-label {
+        font-size: 12px;
+        opacity: 0.7;
+    }
+
+    .content-card {
+        width: 100%;
+        background: #0047AB;
+        /* Slightly darker than background */
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 32px;
+        padding: 30px 20px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    .grid-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        color: white;
+    }
+
+    .icon-box {
+        width: 85px;
+        height: 85px;
+        background: #001F3F;
+        /* Deep blue search box style color */
+        border-radius: 18px;
+        border: 1.5px solid rgba(255, 255, 255, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        transition: 0.3s;
+    }
+
+    .icon-box:hover {
+        transform: translateY(-5px);
+        border-color: white;
+        background: #002D62;
+    }
+
+    .icon-img {
+        width: 70%;
+        height: 70%;
+        object-fit: contain;
+    }
+
+    .gift-badge {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        font-size: 12px;
+    }
+
+    .item-label {
+        font-size: 11px;
+        font-weight: 600;
+        opacity: 0.8;
+        text-align: center;
+    }
+
+    .laptop-icon {
+        width: 24px;
+        height: 24px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="profile-container">
+    <div class="back-nav">
+        <a href="{% url 'materials' %}" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+    </div>
+
+    <div class="avatar-wrapper">
+        <img src="{% static 'img/avatar-baxtiyorov.jpg' %}" alt="{{ author_name }}" class="avatar-img"
+            onerror="this.src='/static/img/avatar-placeholder.png'">
+    </div>
+
+    <div class="author-title">
+        {{ author_name }}
+        <div class="laptop-icon"><i class="fa-solid fa-laptop"></i></div>
+    </div>
+    <div class="author-username">{{ author_username }}</div>
+
+    <div class="stats-row">
+        <div class="stat-item">
+            <span class="stat-value">{{ stats.subscriptions }}</span>
+            <span class="stat-label">Подписки</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-value">{{ stats.followers }}</span>
+            <span class="stat-label">Подписчиков</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-value">{{ stats.likes }}</span>
+            <span class="stat-label">Лайки</span>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <!-- Row 1 -->
+        <a href="#" class="grid-item">
+            <div class="icon-box">
+                <i class="fa-solid fa-gift gift-badge"></i>
+                <span style="font-size: 40px; font-weight: 900; opacity: 0.3;">1</span>
+            </div>
+            <span class="item-label">Цифра</span>
+        </a>
+        <a href="#" class="grid-item">
+            <div class="icon-box">
+                <i class="fa-solid fa-gift gift-badge"></i>
+                <span style="font-size: 40px; font-weight: 900; opacity: 0.3;">1</span>
+            </div>
+            <span class="item-label">Цифра</span>
+        </a>
+        <a href="#" class="grid-item">
+            <div class="icon-box">
+                <i class="fa-solid fa-gift gift-badge"></i>
+                <img src="{% static 'img/menu-visual.png' %}" class="icon-img" style="opacity: 0.6;">
+            </div>
+            <span class="item-label">Цифра</span>
+        </a>
+
+        <!-- Row 2 -->
+        <a href="#" class="grid-item">
+            <div class="icon-box">
+                <i class="fa-solid fa-chevron-down" style="color: gold; font-size: 24px;"></i>
+            </div>
+            <span class="item-label">Подробнее</span>
+        </a>
+        <a href="#" class="grid-item">
+            <div class="icon-box">
+                <i class="fa-solid fa-phone" style="color: #FF4B2B; font-size: 24px;"></i>
+            </div>
+            <span class="item-label">Телефон</span>
+        </a>
+        <a href="#" class="grid-item">
+            <div class="icon-box">
+                <i class="fa-solid fa-minus"
+                    style="color: #00FF00; font-size: 24px; border: 2px solid; border-radius: 10px; padding: 2px 5px;"></i>
+            </div>
+            <span class="item-label">Ссылка</span>
+        </a>
+
+        <!-- Row 3 -->
+        <a href="#" class="grid-item">
+            <div class="icon-box">
+                <i class="fa-solid fa-location-arrow" style="color: #4A90E2; font-size: 28px;"></i>
+            </div>
+            <span class="item-label">Поделиться</span>
+        </a>
+        <a href="#" class="grid-item">
+            <div class="icon-box">
+                <i class="fa-solid fa-calendar" style="color: gold; font-size: 28px;"></i>
+            </div>
+            <span class="item-label">Календарь</span>
+        </a>
+        <a href="#" class="grid-item">
+            <div class="icon-box">
+                <i class="fa-brands fa-youtube" style="color: #FF0000; font-size: 32px;"></i>
+            </div>
+            <span class="item-label">Ютуб</span>
+        </a>
+
+        <!-- Row 4 -->
+        <a href="#" class="grid-item">
+            <div class="icon-box">
+                <i class="fa-solid fa-flag-usa" style="font-size: 32px;"></i>
+            </div>
+            <span class="item-label">Флаг</span>
+        </a>
+        <a href="#" class="grid-item">
+            <div class="icon-box">
+                <i class="fa-solid fa-mobile-screen-button" style="color: #FF8C00; font-size: 32px;"></i>
+            </div>
+            <span class="item-label">Смартфон</span>
+        </a>
+        <a href="#" class="grid-item">
+            <div class="icon-box">
+                <i class="fa-solid fa-laptop" style="opacity: 0.6; font-size: 32px;"></i>
+            </div>
+            <span class="item-label">Ноутбук</span>
+        </a>
+    </div>
+</div>
+{% endblock %}

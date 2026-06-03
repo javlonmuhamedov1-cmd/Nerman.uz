@@ -1,0 +1,131 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ t.nav_profile }} — NERMAN.AI{% endblock %}
+
+{% block extra_head %}
+<style>
+    .profile-avatar-ring {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 4px solid #157BFF;
+        overflow: hidden;
+        box-shadow: 0 0 0 6px rgba(21, 123, 255, 0.15);
+    }
+
+    .stat-card-p {
+        background: white;
+        border-radius: 24px;
+        padding: 24px;
+        text-align: center;
+        border: 2px solid rgba(21, 123, 255, 0.06);
+        flex: 1;
+    }
+
+    .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 18px 24px;
+        background: white;
+        border-radius: 20px;
+        border: 2px solid rgba(0, 0, 0, 0.04);
+        transition: all 0.3s;
+        text-decoration: none;
+        color: #1e293b;
+        font-weight: 600;
+    }
+
+    .menu-item:hover {
+        border-color: #157BFF;
+        transform: translateX(6px);
+    }
+
+    .menu-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        background: #EFF6FF;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #157BFF;
+        font-size: 20px;
+        flex-shrink: 0;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container mx-auto px-4 py-24 max-w-lg">
+
+    <!-- Profile Header -->
+    <div class="text-center mb-10" data-aos="fade-down">
+        <div class="flex justify-center mb-6">
+            <div class="profile-avatar-ring">
+                {% if user.is_authenticated and user.profile.avatar_url %}
+                <img src="{{ user.profile.avatar_url }}" class="w-full h-full object-cover">
+                {% else %}
+                <div
+                    class="w-full h-full bg-gradient-to-br from-[#157BFF] to-[#15488B] flex items-center justify-center text-white text-4xl font-bold">
+                    {{ user.username|first|upper }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <h1 class="text-3xl font-bold text-slate-800">{{ user.get_full_name|default:user.username }}</h1>
+        <p class="text-slate-400 font-bold mt-1">@{{ user.username }}</p>
+        {% if user.email %}
+        <p class="text-slate-500 text-sm mt-2">{{ user.email }}</p>
+        {% endif %}
+    </div>
+
+    <!-- Stats Row -->
+    <div class="flex gap-4 mb-8" data-aos="fade-up">
+        <div class="stat-card-p">
+            <div class="text-3xl font-extrabold text-[#157BFF]">{{ profile.tokens|default:"0" }}</div>
+            <div class="text-xs text-slate-400 font-bold mt-1 uppercase">Tokens</div>
+        </div>
+        <div class="stat-card-p">
+            <div class="text-3xl font-extrabold text-[#157BFF]">{{ chats_count|default:"0" }}</div>
+            <div class="text-xs text-slate-400 font-bold mt-1 uppercase">{% if current_lang == 'ru' %}Чаты{% else
+                %}Chatlar{% endif %}</div>
+        </div>
+        <div class="stat-card-p">
+            <div class="text-lg font-extrabold text-[#157BFF] capitalize">{{ profile.subscription_type|default:"Free" }}
+            </div>
+            <div class="text-xs text-slate-400 font-bold mt-1 uppercase">Plan</div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="space-y-3" data-aos="fade-up">
+        <a href="{% url 'dashboard' %}" class="menu-item">
+            <div class="menu-icon"><i class="fas fa-th-large"></i></div>
+            <span>{{ t.nav_dashboard }}</span>
+            <i class="fas fa-chevron-right ml-auto text-slate-300"></i>
+        </a>
+        <a href="{% url 'ai_chat' %}" class="menu-item">
+            <div class="menu-icon"><i class="fas fa-robot"></i></div>
+            <span>AI Chat</span>
+            <i class="fas fa-chevron-right ml-auto text-slate-300"></i>
+        </a>
+        <a href="{% url 'materials' %}" class="menu-item">
+            <div class="menu-icon"><i class="fas fa-film"></i></div>
+            <span>{% if current_lang == 'ru' %}Материалы{% else %}Materiallar{% endif %}</span>
+            <i class="fas fa-chevron-right ml-auto text-slate-300"></i>
+        </a>
+        <a href="{% url 'pricing' %}" class="menu-item">
+            <div class="menu-icon"><i class="fas fa-gem"></i></div>
+            <span>{{ t.nav_pricing }}</span>
+            <i class="fas fa-chevron-right ml-auto text-slate-300"></i>
+        </a>
+        <a href="{% url 'login' %}" class="menu-item" style="color:#ef4444; border-color: rgba(239,68,68,0.1);">
+            <div class="menu-icon" style="background:#FEF2F2; color:#ef4444;"><i class="fas fa-sign-out-alt"></i></div>
+            <span>{{ t.nav_logout }}</span>
+            <i class="fas fa-chevron-right ml-auto" style="color:#fca5a5;"></i>
+        </a>
+    </div>
+</div>
+{% endblock %}

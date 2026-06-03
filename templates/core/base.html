@@ -1,0 +1,183 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru" class="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+  <title>{% block title %}NERMAN.AI — AI Видеоредактор{% endblock %}</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <!-- AOS (Animate On Scroll) Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc',
+              400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1',
+              800: '#075985', 900: '#0c4a6e',
+            },
+            slate: {
+              50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 800: '#1e293b', 900: '#0f172a',
+            }
+          },
+          fontFamily: {
+            orbitron: ['Orbitron', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Original style.css -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+
+<body
+  class="{% block body_class %}bg-white text-slate-900{% endblock %} min-h-screen overflow-x-hidden w-full relative">
+
+  <!-- Background Gradient is now handled in style.css on the body tag -->
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="preloader-content">
+      <div class="preloader-logo">
+        <span style="--i:1">N</span><span style="--i:2">E</span><span style="--i:3">R</span><span
+          style="--i:4">M</span><span style="--i:5">A</span><span style="--i:6">N</span><span
+          style="--i:7">.</span><span style="--i:8">A</span><span style="--i:9">I</span>
+      </div>
+      <div class="preloader-tagline"><span>Do less.</span><span class="muted">Get more</span></div>
+    </div>
+  </div>
+
+  {% if not hide_header %}
+  {% include 'core/includes/header.html' %}
+  {% endif %}
+
+  <main>
+    {% if messages %}
+    <div class="fixed top-24 right-4 z-50 space-y-3">
+      {% for message in messages %}
+      <div
+        class="glass-effect rounded-2xl px-6 py-4 shadow-2xl border-l-4 {% if message.tags == 'error' %}border-red-500 text-red-700{% else %}border-green-500 text-green-700{% endif %} animate-fade-in">
+        <div class="flex items-center gap-3">
+          {% if message.tags == 'error' %}
+          <i class="fas fa-exclamation-circle text-xl"></i>
+          {% else %}
+          <i class="fas fa-check-circle text-xl"></i>
+          {% endif %}
+          <p class="font-semibold">{{ message }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <script>
+      setTimeout(() => {
+        const msgs = document.querySelectorAll('.animate-fade-in');
+        msgs.forEach(m => {
+          m.style.opacity = '0';
+          m.style.transform = 'translateX(20px)';
+          m.style.transition = 'all 0.5s';
+          setTimeout(() => m.remove(), 500);
+        });
+      }, 5000);
+    </script>
+    {% endif %}
+
+    {% block body %}{% endblock %}
+  </main>
+
+
+  {% if not hide_footer %}
+  {% block footer %}
+  {% include 'core/includes/footer.html' %}
+  {% endblock %}
+  {% endif %}
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // STARS GEN
+    (function () {
+      const starsContainer = document.getElementById('stars-container');
+      if (!starsContainer) return;
+      const numberOfStars = 100;
+      const colors = ['', 'blue', 'light-blue'];
+      const sizes = ['small', 'medium', 'large'];
+      for (let i = 0; i < numberOfStars; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = sizes[Math.floor(Math.random() * sizes.length)];
+        star.classList.add(size);
+        if (Math.random() > 0.7) {
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          if (color) star.classList.add(color);
+        }
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        const duration = 2 + Math.random() * 4;
+        star.style.setProperty('--duration', duration + 's');
+        star.style.animationDelay = Math.random() * 3 + 's';
+        starsContainer.appendChild(star);
+      }
+    })();
+
+    // AOS
+    AOS.init({ duration: 800, once: true });
+
+    // PRELOADER
+    function hidePreloader() {
+      var preloader = document.getElementById('preloader');
+      if (preloader) document.body.classList.add('preloader-hidden');
+    }
+    window.addEventListener('load', () => setTimeout(hidePreloader, 500));
+    setTimeout(hidePreloader, 3000);
+  </script>
+  {% block extra_js %}{% endblock %}
+
+  {% if user.is_authenticated %}
+  {% include 'core/includes/profile_sidebar.html' %}
+  <script>
+    function toggleProfileSidebar(e) {
+      if (e) e.preventDefault();
+      const sidebar = document.getElementById('profile-sidebar');
+      const backdrop = document.getElementById('sidebar-backdrop');
+
+      if (sidebar.classList.contains('-translate-x-full')) {
+        // Open
+        sidebar.classList.remove('-translate-x-full');
+        backdrop.classList.remove('hidden');
+        setTimeout(() => backdrop.classList.add('opacity-100'), 10);
+        document.body.style.overflow = 'hidden';
+      } else {
+        // Close
+        sidebar.classList.add('-translate-x-full');
+        backdrop.classList.remove('opacity-100');
+        setTimeout(() => backdrop.classList.add('hidden'), 500);
+        document.body.style.overflow = '';
+      }
+    }
+  </script>
+  {% endif %}
+</body>
+
+</html>

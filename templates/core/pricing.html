@@ -1,0 +1,187 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{t.nav_pricing}} — NERMAN.AI{% endblock %}
+
+{% block extra_head %}
+<style>
+    :root {
+        --nerman-blue: #0A5BD1;
+        --card-bg: rgba(255, 255, 255, 0.05);
+        --card-border: rgba(255, 255, 255, 0.4);
+    }
+
+    .pricing-modal {
+        background: var(--nerman-blue);
+        border-radius: 40px;
+        padding: 40px;
+        max-width: 500px;
+        margin: 40px auto;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .pricing-title {
+        font-size: 32px;
+        font-weight: 700;
+        text-align: center;
+        color: white;
+        margin-bottom: 40px;
+        text-transform: none;
+    }
+
+    .pricing-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .pricing-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 24px;
+        padding: 24px;
+        position: relative;
+        backdrop-filter: blur(10px);
+        transition: transform 0.3s ease;
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .plan-name {
+        font-size: 24px;
+        font-weight: 700;
+        color: white;
+        margin: 0;
+    }
+
+    .price-display {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        color: white;
+    }
+
+    .price-value {
+        font-size: 32px;
+        font-weight: 700;
+    }
+
+    .price-currency {
+        font-size: 16px;
+        opacity: 0.9;
+    }
+
+    .features-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 25px 0;
+    }
+
+    .features-list li {
+        color: white;
+        font-size: 13px;
+        margin-bottom: 10px;
+        padding-left: 15px;
+        position: relative;
+        opacity: 0.9;
+    }
+
+    .features-list li:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 8px;
+        width: 4px;
+        height: 4px;
+        background: white;
+        border-radius: 50%;
+    }
+
+    .buy-button {
+        width: 100%;
+        background: linear-gradient(180deg, #2A7AF0 0%, #157BFF 100%);
+        color: white;
+        border: none;
+        border-radius: 24px;
+        padding: 16px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="min-h-screen py-12" style="background: transparent;">
+    <div class="pricing-modal" data-aos="zoom-in">
+        <h1 class="pricing-title">{% if current_lang == 'ru' %}Цены Подписок{% else %}Obuna narxlari{% endif %}</h1>
+
+        <div class="pricing-grid">
+            <!-- Freemium -->
+            <div class="pricing-card">
+                <div class="card-header">
+                    <div class="plan-name">Freemium</div>
+                    <div class="price-display">
+                        <span class="price-value">0</span>
+                        <span class="price-currency">{% if current_lang == 'ru' %}сум{% else %}so'm{% endif %}</span>
+                    </div>
+                </div>
+                <ul class="features-list">
+                    <li>{% if current_lang == 'ru' %}Скачивание пробного материала{% else %}Sinov materiallarini yuklab
+                        olish{% endif %}</li>
+                </ul>
+                <a href="{% url 'materials' %}" class="buy-button">{% if current_lang == 'ru' %}Попробовать Бесплатно{%
+                    else %}Bepul sinab ko'rish{% endif %}</a>
+            </div>
+
+            <!-- Medium -->
+            <div class="pricing-card">
+                <div class="card-header">
+                    <div class="plan-name">Medium</div>
+                    <div class="price-display">
+                        <span class="price-value">99.000</span>
+                        <span class="price-currency">{% if current_lang == 'ru' %}сум{% else %}so'm{% endif %}</span>
+                    </div>
+                </div>
+                <ul class="features-list">
+                    <li>{% if current_lang == 'ru' %}Полный доступ ко всем материалам{% else %}Barcha materiallardan
+                        to'liq foydalanish{% endif %}</li>
+                    <li>{% if current_lang == 'ru' %}Регулярные обновления{% else %}Muntazam yangilanishlar{% endif %}
+                    </li>
+                </ul>
+                <a href="https://t.me/kucherbaev_17" class="buy-button">{% if current_lang == 'ru' %}Месячный план{%
+                    else %}Oylik plan{% endif %}</a>
+            </div>
+
+            <!-- Single -->
+            <div class="pricing-card">
+                <div class="card-header">
+                    <div class="plan-name">Single</div>
+                    <div class="price-display">
+                        <span class="price-value">7.000</span>
+                        <span class="price-currency">{% if current_lang == 'ru' %}сум{% else %}so'm{% endif %}</span>
+                    </div>
+                </div>
+                <ul class="features-list">
+                    <li>{% if current_lang == 'ru' %}Разовая покупка материала{% else %}Materialni bir martalik sotib
+                        olish{% endif %}</li>
+                    <li>{% if current_lang == 'ru' %}Разовая покупка пака материалов{% else %}Materiallar paketini bir
+                        martalik sotib olish{% endif %}</li>
+                </ul>
+                <a href="https://t.me/kucherbaev_17" class="buy-button">{% if current_lang == 'ru' %}Разовый план{% else
+                    %}Bir martalik plan{% endif %}</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

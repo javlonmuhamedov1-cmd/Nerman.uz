@@ -1,0 +1,117 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ t.nav_dashboard }} — NERMAN.AI{% endblock %}
+
+{% block extra_head %}
+<!-- ... same styles as before ... -->
+<style>
+    /* Reuse dashboard styles */
+    .dashboard-container { display: flex; min-height: calc(100vh - 105px); margin-top: 25px; }
+    .sidebar { width: 280px; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border-right: 1px solid rgba(21, 123, 255, 0.1); border-radius: 0 40px 40px 0; padding: 30px 20px; display: flex; flex-direction: column; }
+    .main-dashboard { flex: 1; padding: 40px; }
+    .stat-card { background: white; border-radius: 30px; padding: 30px; border: 2px solid rgba(21, 123, 255, 0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.02); display: flex; align-items: center; gap: 20px; }
+    .stat-icon { width: 60px; height: 60px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; }
+    .chat-item-link { background: white; border-radius: 20px; padding: 20px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s; }
+    .chat-item-link:hover { transform: translateX(10px); border-color: #157BFF; box-shadow: 0 10px 20px rgba(21, 123, 255, 0.1); }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container mx-auto px-4">
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" data-aos="fade-right">
+            <div class="space-y-4">
+                <a href="{% url 'ai_chat' %}" class="flex items-center gap-4 p-4 rounded-2xl bg-[#157BFF] text-white font-bold shadow-lg">
+                    <i class="fas fa-comment-dots text-xl"></i>
+                    <span>AI Chat</span>
+                </a>
+                <a href="{% url 'materials' %}" class="flex items-center gap-4 p-4 rounded-2xl text-slate-600 hover:bg-slate-100 font-bold transition-all">
+                    <i class="fas fa-folder text-xl"></i>
+                    <span>{{ t.nav_pricing|default:"Материалы" }}</span>
+                </a>
+                <a href="{% url 'pricing' %}" class="flex items-center gap-4 p-4 rounded-2xl text-slate-600 hover:bg-slate-100 font-bold transition-all">
+                    <i class="fas fa-gem text-xl"></i>
+                    <span>{{ t.nav_pricing }}</span>
+                </a>
+                <a href="{% url 'faq' %}" class="flex items-center gap-4 p-4 rounded-2xl text-slate-600 hover:bg-slate-100 font-bold transition-all">
+                    <i class="fas fa-headset text-xl"></i>
+                    <span>{{ t.nav_support }}</span>
+                </a>
+            </div>
+
+            <div class="mt-auto pt-8 border-t border-slate-100">
+                <div class="bg-blue-50 rounded-2xl p-4">
+                    <div class="text-xs text-slate-400 font-bold uppercase mb-2">{% if current_lang == 'ru' %}ВАШ ПЛАН{% else %}SIZNING REJANGIZ{% endif %}</div>
+                    <div class="text-[#157BFF] font-extrabold text-lg">{{ profile.subscription_type }}</div>
+                    <div class="text-slate-500 text-sm mt-1">{% if current_lang == 'ru' %}Доступно{% else %}Mavjud{% endif %} {{ profile.tokens }} tokens</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-dashboard" data-aos="fade-up">
+            <div class="flex justify-between items-center mb-10">
+                <h1 class="text-4xl font-bold text-slate-800">{% if current_lang == 'ru' %}Привет{% else %}Salom{% endif %}, {{ user.username }}!</h1>
+                <a href="{% url 'create_chat' %}" class="px-8 py-3 bg-gradient-to-r from-[#157BFF] to-[#15488B] text-white rounded-full font-bold shadow-lg hover:scale-105 transition-all">
+                    + {{ t.new_chat }}
+                </a>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <div class="stat-card">
+                    <div class="stat-icon bg-gradient-to-br from-blue-400 to-[#157BFF]">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-extrabold text-slate-800">{{ profile.tokens }}</div>
+                        <div class="text-slate-500 font-bold">{% if current_lang == 'ru' %}Остаток токенов{% else %}Tokenlar qoldig'i{% endif %}</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon bg-gradient-to-br from-purple-400 to-[#764ba2]">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-extrabold text-slate-800">{{ recent_chats.count }}</div>
+                        <div class="text-slate-500 font-bold">{% if current_lang == 'ru' %}Активных чатов{% else %}Faol chatlar{% endif %}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="bg-white/50 backdrop-blur-md rounded-[40px] p-10 border-2 border-white shadow-xl">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-2xl font-bold text-slate-800">{{ t.your_chats }}</h2>
+                </div>
+
+                <div class="space-y-4">
+                    {% for chat in recent_chats %}
+                    <a href="{% url 'ai_chat' chat.id %}" class="chat-item-link group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-[#157BFF]">
+                                <i class="fas fa-comment-dots text-xl"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-slate-800 group-hover:text-[#157BFF] transition-colors">{{ chat.title }}</div>
+                                <div class="text-xs text-slate-400">{{ chat.updated_at|date:"d M Y, H:i" }}</div>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-right text-slate-300 group-hover:text-[#157BFF] transition-all"></i>
+                    </a>
+                    {% empty %}
+                    <div class="text-center py-12">
+                        <p class="text-slate-400 font-bold mb-6">{% if current_lang == 'ru' %}У вас пока нет активных чатов{% else %}Sizda hali faol chatlar yo'q{% endif %}</p>
+                        <a href="{% url 'create_chat' %}" class="px-6 py-3 border-2 border-[#157BFF] text-[#157BFF] rounded-full font-bold hover:bg-[#157BFF] hover:text-white transition-all">
+                            {{ t.new_chat }}
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}

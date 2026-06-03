@@ -1,0 +1,57 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ t.legal_terms_title }} — NERMAN.AI{% endblock %}
+
+{% block body %}
+<div class="container mx-auto px-4 py-28 max-w-4xl">
+    <div class="text-center mb-16" data-aos="fade-down">
+        <h1 class="text-5xl font-bold font-orbitron">
+            <span class="gradient-text">{{ t.legal_terms_title }}</span>
+        </h1>
+        <p class="text-slate-400 mt-4">{% if current_lang == 'ru' %}Последнее обновление: 29 мая 2026 г.{% else %}Oxirgi
+            yangilanish: 29 may 2026 yil{% endif %}</p>
+    </div>
+
+    <div class="space-y-6" data-aos="fade-up">
+        <div class="bg-white/70 backdrop-blur-md rounded-[30px] p-10 border-2 border-slate-50 shadow-sm">
+            <h2 class="text-2xl font-bold text-[#157BFF] mb-4 font-orbitron">{{ t.legal_section1_title }}</h2>
+            <p class="text-slate-600 leading-relaxed">
+                {% if current_lang == 'ru' %}Используя платформу NERMAN.AI, вы соглашаетесь соблюдать настоящие Условия
+                использования. Если вы не согласны с какими-либо из этих условий, вам запрещено использовать этот
+                сайт.{% else %}NERMAN.AI platformasidan foydalanib, siz ushbu Foydalanish shartlariga rioya qilishga
+                rozisiz.{% endif %}
+            </p>
+        </div>
+
+        <div class="bg-white/70 backdrop-blur-md rounded-[30px] p-10 border-2 border-slate-50 shadow-sm">
+            <h2 class="text-2xl font-bold text-[#157BFF] mb-4 font-orbitron">{{ t.legal_section2_title }}</h2>
+            <p class="text-slate-600 leading-relaxed">
+                {% if current_lang == 'ru' %}Разрешается временная загрузка одной копии материалов на веб-сайте
+                NERMAN.AI только для личного, некоммерческого временного просмотра.{% else %}NERMAN.AI veb-saytidagi
+                materiallarning bitta nusxasini faqat shaxsiy, tijorat bo'lmagan maqsadlarda vaqtincha yuklab olishga
+                ruxsat beriladi.{% endif %}
+            </p>
+        </div>
+
+        <div class="bg-white/70 backdrop-blur-md rounded-[30px] p-10 border-2 border-slate-50 shadow-sm">
+            <h2 class="text-2xl font-bold text-[#157BFF] mb-4 font-orbitron">{{ t.legal_section3_title }}</h2>
+            <p class="text-slate-600 leading-relaxed">
+                {% if current_lang == 'ru' %}Материалы на веб-сайте NERMAN.AI предоставляются на условиях «как есть».
+                NERMAN.AI не дает никаких гарантий, выраженных или подразумеваемых.{% else %}NERMAN.AI veb-saytidagi
+                materiallar "mavjud holda" taqdim etiladi.{% endif %}
+            </p>
+        </div>
+
+        <div class="bg-white/70 backdrop-blur-md rounded-[30px] p-10 border-2 border-slate-50 shadow-sm">
+            <h2 class="text-2xl font-bold text-[#157BFF] mb-4 font-orbitron">{{ t.legal_section4_title }}</h2>
+            <p class="text-slate-600 leading-relaxed">
+                {% if current_lang == 'ru' %}Ни при каких обстоятельствах NERMAN.AI или ее поставщики не несут
+                ответственности за любые убытки, возникшие в результате использования материалов на NERMAN.AI.{% else
+                %}Hech qanday sharoitda NERMAN.AI yoki uning ta'minotchilari NERMAN.AI materiallaridan foydalanish
+                natijasida yuzaga kelgan zararlar uchun javobgar bo'lmaydi.{% endif %}
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,506 @@
+:root {
+    --bg-main: #f8fafc;
+    --bg-glass: rgba(255, 255, 255, 0.7);
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border-glass: rgba(21, 123, 255, 0.1);
+    --blob-opacity: 0.4;
+    --card-bg: #ffffff;
+}
+
+
+body {
+    /* Background handled by Tailwind or page-specific overrides */
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Specific theme for Dashboard/Materials */
+.deep-blue-theme {
+    background-color: #0056D2 !important;
+    color: white !important;
+}
+
+/* Update section backgrounds to be transparent to allow variable background to show through */
+section {
+    background-color: transparent !important;
+}
+
+/* Update existing text colors to use variables where appropriate */
+.text-slate-600 {
+    color: var(--text-muted) !important;
+}
+
+.text-slate-900 {
+    color: var(--text-main) !important;
+}
+
+/* Global Styles for Nerman.AI Platform */
+
+/* Orbitron font for branding */
+.font-orbitron {
+    font-family: 'Orbitron', sans-serif !important;
+}
+
+/* Gradient text effect */
+.gradient-text {
+    background: linear-gradient(135deg, #157BFF 0%, #15488B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Gradient background */
+.gradient-bg {
+    background: linear-gradient(135deg, #157BFF 0%, #15488B 100%);
+}
+
+/* Fade-in animation for messages */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+}
+
+/* Smooth scrolling for anchor links */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for WebKit browsers */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #157BFF;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #15488B;
+}
+
+/* Loading spinner */
+.spinner {
+    border: 3px solid #f1f5f9;
+    border-top: 3px solid #157BFF;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Card hover effects */
+.card-hover {
+    transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Button primary style */
+.btn-primary {
+    background: linear-gradient(135deg, #157BFF 0%, #15488B 100%);
+    color: white;
+    padding: 12px 32px;
+    border-radius: 9999px;
+    font-weight: 700;
+    transition: all 0.3s;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(21, 123, 255, 0.3);
+}
+
+/* Form inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #157BFF;
+    box-shadow: 0 0 0 3px rgba(21, 123, 255, 0.1);
+}
+
+/* Error messages */
+.error-message {
+    background: #fee2e2;
+    border-left: 4px solid #ef4444;
+    color: #991b1b;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+/* Success messages */
+.success-message {
+    background: #d1fae5;
+    border-left: 4px solid #10b981;
+    color: #065f46;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
+
+/* ==========================================================================
+   PRELOADER STYLES
+   ========================================================================== */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #15488B 0%, #157BFF 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s;
+    overflow: hidden;
+}
+
+@keyframes preloaderBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.preloader-content {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.preloader-logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 5.5rem;
+    font-weight: 900;
+    color: white;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.preloader-logo span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+    filter: blur(10px);
+    animation: letter-reveal-premium 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes letter-reveal-premium {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+        filter: blur(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+.preloader-tagline {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    font-weight: 500;
+    opacity: 0;
+    animation: tagline-reveal-premium 1s ease-out 1.2s forwards;
+    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.preloader-tagline span.muted {
+    color: rgba(255, 255, 255, 0.4);
+    margin-left: 5px;
+}
+
+@keyframes tagline-reveal-premium {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+        letter-spacing: 1px;
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        letter-spacing: 3px;
+    }
+}
+
+body.preloader-hidden {
+    overflow: auto;
+}
+
+body.preloader-hidden #preloader {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* ==========================================================================
+   HOMEPAGE LIVING BACKGROUND (Subtle)
+   ========================================================================== */
+.homepage-blobs {
+    display: none;
+}
+
+.blob-h {
+    position: absolute;
+    border-radius: 50%;
+    animation: blob-h-float 30s infinite alternate ease-in-out;
+}
+
+.blob-h-1 {
+    width: 1000px;
+    height: 1000px;
+    background: rgba(21, 123, 255, 0.45);
+    /* Vibrant Blue */
+    top: -300px;
+    right: -200px;
+}
+
+.blob-h-2 {
+    width: 900px;
+    height: 900px;
+    background: rgba(21, 72, 139, 0.4);
+    /* Dark Blue */
+    bottom: -200px;
+    left: -200px;
+    animation-delay: -7s;
+}
+
+.blob-h-3 {
+    width: 700px;
+    height: 700px;
+    background: rgba(14, 165, 233, 0.35);
+    /* Light Blue */
+    top: 30%;
+    left: 10%;
+    animation-delay: -15s;
+}
+
+.blob-h-4 {
+    width: 800px;
+    height: 800px;
+    background: rgba(255, 255, 255, 0.2);
+    /* Soft White highlight */
+    top: 10%;
+    right: 30%;
+    animation-delay: -22s;
+    animation-duration: 40s;
+}
+
+@keyframes blob-h-float {
+    0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+
+    33% {
+        transform: translate(150px, 100px) scale(1.1) rotate(10deg);
+    }
+
+    66% {
+        transform: translate(-100px, 200px) scale(1.2) rotate(-10deg);
+    }
+
+    100% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+}
+
+/* Glassmorphism Effect */
+.glass-effect {
+    background: var(--bg-glass) !important;
+    backdrop-filter: blur(25px) !important;
+    -webkit-backdrop-filter: blur(25px) !important;
+    border: 1px solid var(--border-glass) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+    transition: background 0.5s ease, border 0.5s ease;
+}
+
+/* Mobile Overflow Fixes */
+@media (max-width: 768px) {
+
+    body,
+    html {
+        overflow-x: hidden;
+        width: 100vw;
+        position: relative;
+    }
+
+    .container {
+        max-width: 100% !important;
+        overflow-x: hidden;
+    }
+
+    .homepage-blobs {
+        opacity: 0.2;
+        /* Reduce opacity on mobile */
+    }
+
+    .blob-h {
+        transform: scale(0.7);
+        /* Scale down blobs on mobile */
+    }
+}
+
+/* --- New Theme Switch Slider Styles --- */
+.theme-switch-wrapper {
+    display: inline-block;
+    height: 38px;
+    position: relative;
+    width: 70px;
+}
+
+.theme-switch-wrapper input {
+    display: none !important;
+}
+
+.theme-switch-slider {
+    background-color: #e2e8f0;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+    border-radius: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.theme-switch-slider:before {
+    background-color: #fff;
+    bottom: 4px;
+    content: "";
+    height: 30px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 30px;
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+input:checked+.theme-switch-slider {
+    background-color: #1a1f2e;
+}
+
+input:checked+.theme-switch-slider:before {
+    transform: translateX(32px);
+    background-color: #1e293b;
+}
+
+.sun-icon,
+.moon-icon {
+    font-size: 14px;
+    z-index: 1;
+    transition: .3s;
+}
+
+.sun-icon {
+    color: #f59e0b;
+}
+
+.moon-icon {
+    color: #94a3b8;
+}
+
+input:checked+.theme-switch-slider .sun-icon {
+    opacity: 0.3;
+}
+
+input:checked+.theme-switch-slider .moon-icon {
+    color: #fbbf24;
+    opacity: 1;
+}
+
+
+/* Remove old toggle styles if they exist */
+.theme-toggle-btn {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .preloader-logo {
+        font-size: 2.25rem;
+    }
+
+    .preloader-tagline {
+        font-size: 1rem;
+    }
+}

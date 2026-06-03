@@ -1,0 +1,41 @@
+{% extends "core/base.html" %}
+{% block title %}NERMAN.AI — Sound Detail{% endblock %}
+{% block body %}
+<div class="sound-detail-page">
+    <button class="back-btn" onclick="history.back()">← Назад</button>
+
+    <div class="sound-artwork">1</div>
+
+    <div class="sound-detail-title">Riser 1 <span>❓</span></div>
+
+    <div class="sound-controls">
+        <button class="control-btn">⏮</button>
+        <button class="control-btn play-btn">▶</button>
+        <button class="control-btn">⏭</button>
+    </div>
+
+    <div class="variant-pills">
+        <button class="variant-pill active">1</button>
+        <button class="variant-pill">2</button>
+        <button class="variant-pill">3</button>
+        <button class="variant-pill">4</button>
+        <button class="variant-pill">5</button>
+    </div>
+
+    <div class="download-section">
+        <button class="btn-download">⬇ Скачать</button>
+    </div>
+
+    <div class="author-section">
+        <div class="author-label">Автор</div>
+        <div class="author-card">
+            <div class="author-avatar">B</div>
+            <div class="author-info">
+                <div class="author-name">Baxtiyorov</div>
+                <div class="author-works">Ещё 19 его работ..</div>
+            </div>
+            <button class="subscribe-btn">Подписаться</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,426 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{t.nav_home}} — NERMAN.AI{% endblock %}
+
+{% block body %}
+<!-- Hero Section -->
+<section id="home" class="relative overflow-hidden py-20 md:py-32">
+    <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="max-w-3xl" data-aos="fade-right">
+                <h1 class="text-2xl md:text-6xl font-bold mb-6 text-[#157BFF] font-orbitron leading-tight">
+                    {{t.hero_title}}
+                </h1>
+                <p class="text-lg md:text-xl text-slate-600 mb-8 leading-relaxed">
+                    {{t.hero_desc}}
+                </p>
+                <div>
+                    {% if user.is_authenticated %}
+                    <a href="javascript:void(0)" onclick="toggleProfileSidebar(event)"
+                        class="inline-block px-8 py-4 text-lg font-bold text-white rounded-full transition-all hover:scale-105 shadow-lg hover:shadow-xl bg-gradient-to-r from-[#157BFF] to-[#15488B]">
+                        {{t.btn_create_project}}
+                    </a>
+                    {% else %}
+                    <a href="{% url 'login' %}"
+                        class="inline-block px-8 py-4 text-lg font-bold text-white rounded-full transition-all hover:scale-105 shadow-lg hover:shadow-xl bg-gradient-to-r from-[#157BFF] to-[#15488B]">
+                        {{t.btn_create_project}}
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="relative flex justify-center items-end overflow-hidden" data-aos="zoom-in">
+                <img src="{% static 'img/hero_phone_mrbeast_small.png' %}" alt="App Dashboard Small"
+                    class="h-[300px] md:h-[400px] w-auto max-w-[50%] md:max-w-full object-contain relative z-30 md:-mr-24 mb-4 drop-shadow-xl transform -rotate-3 hover:scale-105 transition-all duration-300">
+                <img src="{% static 'img/hero_phone_mrbeast_new.png' %}" alt="App Dashboard"
+                    class="h-[400px] md:h-[500px] w-auto max-w-[80%] md:max-w-full object-contain relative z-20 drop-shadow-2xl">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Company Logos Marquee -->
+<section class="py-16 overflow-hidden border-b border-slate-100/10">
+    <div class="relative w-full overflow-hidden group">
+        <div class="flex w-max animate-marquee-robust group-hover:[animation-play-state:paused]">
+            <!-- Set 1 -->
+            <div class="flex items-center gap-16 md:gap-32 pr-16 md:pr-32">
+                <img src="{% static 'img/logos/tesla.png' %}" alt="Tesla"
+                    class="h-8 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 transition-all cursor-pointer">
+                <img src="{% static 'img/logos/apple.png' %}" alt="Apple"
+                    class="h-8 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 transition-all cursor-pointer">
+                <img src="{% static 'img/logos/google.png' %}" alt="Google"
+                    class="h-8 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 transition-all cursor-pointer">
+                <img src="{% static 'img/logos/microsoft.png' %}" alt="Microsoft"
+                    class="h-8 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 transition-all cursor-pointer">
+            </div>
+            <!-- Set 2 -->
+            <div class="flex items-center gap-16 md:gap-32 pr-16 md:pr-32">
+                <img src="{% static 'img/logos/spotify.png' %}" alt="Spotify"
+                    class="h-8 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 transition-all cursor-pointer">
+                <img src="{% static 'img/logos/tesla.png' %}" alt="Tesla"
+                    class="h-8 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 transition-all cursor-pointer">
+                <img src="{% static 'img/logos/apple.png' %}" alt="Apple"
+                    class="h-8 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 transition-all cursor-pointer">
+                <img src="{% static 'img/logos/google.png' %}" alt="Google"
+                    class="h-8 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 transition-all cursor-pointer">
+                <img src="{% static 'img/logos/microsoft.png' %}" alt="Microsoft"
+                    class="h-8 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 transition-all cursor-pointer">
+            </div>
+            <!-- Set 3 -->
+            <div class="flex items-center gap-16 md:gap-32 pr-16 md:pr-32">
+                <img src="{% static 'img/logos/spotify.png' %}" alt="Spotify"
+                    class="h-8 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 transition-all cursor-pointer">
+                <img src="{% static 'img/logos/tesla.png' %}" alt="Tesla"
+                    class="h-8 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 transition-all cursor-pointer">
+                <img src="{% static 'img/logos/apple.png' %}" alt="Apple"
+                    class="h-8 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 transition-all cursor-pointer">
+                <img src="{% static 'img/logos/google.png' %}" alt="Google"
+                    class="h-8 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 transition-all cursor-pointer">
+                <img src="{% static 'img/logos/microsoft.png' %}" alt="Microsoft"
+                    class="h-8 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 transition-all cursor-pointer">
+            </div>
+        </div>
+    </div>
+    <style>
+        @keyframes marquee-robust {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-33.33%);
+            }
+        }
+
+        .animate-marquee-robust {
+            animation: marquee-robust 40s linear infinite;
+        }
+    </style>
+</section>
+
+<!-- Product Workflow Section -->
+<section id="product" class="py-24 bg-transparent overflow-hidden">
+    <div class="container mx-auto px-4">
+        <h2 class="text-5xl md:text-7xl font-extrabold text-center mb-24 text-[#157BFF]" data-aos="fade-down">
+            {{ t.workflow_title }}
+        </h2>
+
+        <!-- Step 1 & 2: Robot at computer -->
+        <div class="flex flex-col md:flex-row items-center justify-between gap-16 mb-32" data-aos="fade-up">
+            <div class="md:w-1/2 space-y-12">
+                <div class="bg-blue-50/50 p-8 rounded-[30px] border-2 border-[#157BFF]/10 shadow-sm">
+                    <h3 class="text-3xl font-bold text-slate-900 mb-4 flex items-center">
+                        <span
+                            class="w-12 h-12 bg-[#157BFF] text-white rounded-full flex items-center justify-center mr-4 shrink-0">1</span>
+                        {{ t.workflow_step1_title }}
+                    </h3>
+                    <p class="text-xl text-slate-600 leading-relaxed">
+                        {{ t.workflow_step1_desc }}
+                    </p>
+                </div>
+                <div class="bg-blue-50/50 p-8 rounded-[30px] border-2 border-[#157BFF]/10 shadow-sm">
+                    <h3 class="text-3xl font-bold text-slate-900 mb-4 flex items-center">
+                        <span
+                            class="w-12 h-12 bg-[#157BFF] text-white rounded-full flex items-center justify-center mr-4 shrink-0">2</span>
+                        {{ t.workflow_step2_title }}
+                    </h3>
+                    <p class="text-xl text-slate-600 leading-relaxed">
+                        {{ t.workflow_step2_desc }}
+                    </p>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative group">
+                    <div
+                        class="absolute -inset-4 bg-gradient-to-r from-[#157BFF] to-blue-400 rounded-[50px] blur-2xl opacity-20 group-hover:opacity-30 transition-opacity">
+                    </div>
+                    <img src="{% static 'img/product/robot_editing_1.jpg' %}" alt="AI Editing"
+                        class="relative z-10 w-full max-w-[500px] h-auto rounded-[40px] shadow-2xl">
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3 & 4: Robot managing styles -->
+        <div class="flex flex-col md:flex-row-reverse items-center justify-between gap-16 mb-32" data-aos="fade-up">
+            <div class="md:w-1/2 space-y-12">
+                <div class="bg-blue-50/50 p-8 rounded-[30px] border-2 border-[#157BFF]/10 shadow-sm">
+                    <h3 class="text-3xl font-bold text-slate-900 mb-4 flex items-center">
+                        <span
+                            class="w-12 h-12 bg-[#157BFF] text-white rounded-full flex items-center justify-center mr-4 shrink-0">3</span>
+                        {{ t.workflow_step3_title }}
+                    </h3>
+                    <p class="text-xl text-slate-600 leading-relaxed">
+                        {{ t.workflow_step3_desc }}
+                    </p>
+                </div>
+                <div class="bg-blue-50/50 p-8 rounded-[30px] border-2 border-[#157BFF]/10 shadow-sm">
+                    <h3 class="text-3xl font-bold text-slate-900 mb-4 flex items-center">
+                        <span
+                            class="w-12 h-12 bg-[#157BFF] text-white rounded-full flex items-center justify-center mr-4 shrink-0">4</span>
+                        {{ t.workflow_step4_title }}
+                    </h3>
+                    <p class="text-xl text-slate-600 leading-relaxed">
+                        {{ t.workflow_step4_desc }}
+                    </p>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative group">
+                    <div
+                        class="absolute -inset-4 bg-gradient-to-r from-blue-400 to-[#157BFF] rounded-[50px] blur-2xl opacity-20 group-hover:opacity-30 transition-opacity">
+                    </div>
+                    <img src="{% static 'img/product/robot_editing_2.jpg' %}" alt="AI Styling"
+                        class="relative z-10 w-full max-w-[500px] h-auto rounded-[40px] shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Section -->
+<section id="why" class="py-24 bg-gradient-to-br from-[#E3F2FD] via-[#BBDEFB] to-[#E3F2FD]" data-aos="fade-in">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-20 text-slate-900" data-aos="fade-down">
+            {{ t.why_title }} <span class="gradient-text font-orbitron">NERMAN.AI</span>
+        </h2>
+
+        <div class="flex justify-center">
+            <div class="w-full max-w-[1320px] bg-white/40 backdrop-blur-md rounded-[50px] p-12 md:p-20 shadow-2xl relative overflow-hidden"
+                data-aos="zoom-in">
+                <div
+                    class="absolute -top-24 -right-24 w-96 h-96 bg-blue-400/20 rounded-full blur-[100px] pointer-events-none">
+                </div>
+                <div
+                    class="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-300/20 rounded-full blur-[100px] pointer-events-none">
+                </div>
+
+                <div class="flex flex-col gap-24 relative z-10">
+                    <!-- Pains Part -->
+                    <div class="space-y-12">
+                        <div class="text-left">
+                            <h2 class="text-4xl font-extrabold text-[#157BFF] mb-2 inline-block relative">
+                                {{ t.why_pains_title }}
+                                <div class="absolute -bottom-2 left-0 w-full h-1 bg-[#157BFF] rounded-full"></div>
+                            </h2>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+                            <div class="flex flex-col items-start gap-6" data-aos="fade-up">
+                                <div
+                                    class="w-20 h-20 md:w-28 md:h-28 rounded-full bg-blue-50/50 flex items-center justify-center p-4">
+                                    <img src="{% static 'img/snail_icon.png' %}" alt="Snail"
+                                        class="w-full h-full object-contain">
+                                </div>
+                                <div class="space-y-4">
+                                    <h3 class="text-2xl font-bold text-slate-900">{{ t.why_pain1_title }}</h3>
+                                    <p class="text-lg text-slate-700 leading-relaxed">{{ t.why_pain1_desc }}</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-start gap-6" data-aos="fade-up" data-aos-delay="100">
+                                <div
+                                    class="w-20 h-20 flex items-center justify-center bg-[#157BFF]/10 rounded-2xl text-slate-900">
+                                    <i class="fa-solid fa-users text-5xl"></i>
+                                </div>
+                                <div class="space-y-4">
+                                    <h3 class="text-2xl font-bold text-slate-900">{{ t.why_pain2_title }}</h3>
+                                    <ul class="text-lg text-slate-700 space-y-2 list-none">
+                                        {{ t.why_pain2_list|safe }}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-start gap-6" data-aos="fade-up" data-aos-delay="200">
+                                <div
+                                    class="w-20 h-20 flex items-center justify-center bg-[#157BFF]/10 rounded-2xl text-slate-900">
+                                    <i class="fa-solid fa-user text-5xl"></i>
+                                </div>
+                                <div class="space-y-4">
+                                    <h3 class="text-2xl font-bold text-slate-900">{{ t.why_pain3_title }}</h3>
+                                    <ul class="text-lg text-slate-700 space-y-2 list-none">
+                                        {{ t.why_pain3_list|safe }}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="h-px w-full bg-[#157BFF]/20"></div>
+
+                    <!-- Solutions Part -->
+                    <div class="space-y-12">
+                        <div class="text-left">
+                            <h2 class="text-4xl font-extrabold text-[#157BFF] mb-2 inline-block relative">
+                                {{ t.why_solutions_title }}
+                                <div class="absolute -bottom-2 left-0 w-full h-1 bg-[#157BFF] rounded-full"></div>
+                            </h2>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+                            <div class="flex flex-col items-start gap-6" data-aos="fade-up">
+                                <div
+                                    class="w-20 h-20 flex items-center justify-center bg-[#157BFF]/10 rounded-2xl text-slate-900">
+                                    <i class="fa-solid fa-rocket text-5xl"></i>
+                                </div>
+                                <div class="space-y-4">
+                                    <h3 class="text-2xl font-bold text-slate-900">{{ t.why_sol1_title }}</h3>
+                                    <p class="text-lg text-slate-700 leading-relaxed">{{ t.why_sol1_desc }}</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-start gap-6" data-aos="fade-up" data-aos-delay="100">
+                                <div
+                                    class="w-20 h-20 flex items-center justify-center bg-[#157BFF]/10 rounded-2xl text-slate-900">
+                                    <i class="fa-solid fa-gear text-5xl"></i>
+                                </div>
+                                <div class="space-y-4">
+                                    <h3 class="text-2xl font-bold text-slate-900">{{ t.why_sol2_title }}</h3>
+                                    <p class="text-lg text-slate-700 leading-relaxed">{{ t.why_sol2_desc }}</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-start gap-6" data-aos="fade-up" data-aos-delay="200">
+                                <div
+                                    class="w-20 h-20 flex items-center justify-center bg-[#157BFF]/10 rounded-2xl text-slate-900">
+                                    <i class="fa-solid fa-bullseye text-5xl"></i>
+                                </div>
+                                <div class="space-y-4">
+                                    <h3 class="text-2xl font-bold text-slate-900">{{ t.why_sol3_title }}</h3>
+                                    <p class="text-lg text-slate-700 leading-relaxed mb-2">{{ t.why_sol3_desc }}</p>
+                                    <ul class="text-lg text-slate-700 space-y-2 list-none">
+                                        {{ t.why_sol3_list|safe }}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Us Section / O nas -->
+<section id="about" class="py-20 bg-transparent flex flex-col items-center justify-center"
+    style="min-height: 1024px; opacity: 1;">
+    <div class="container mx-auto px-4" style="max-width: 1280px;">
+        <!-- First Block: Company Introduction -->
+        <div class="flex flex-col md:flex-row items-center justify-between gap-12 mb-20" data-aos="fade-up">
+            <div class="lg:w-2/3 bg-white border-2 border-blue-200 rounded-[40px] p-12 md:p-16 shadow-xl"
+                data-aos="fade-right" data-aos-delay="200">
+                <h2 class="text-5xl md:text-6xl font-bold text-[#157BFF] mb-10"
+                    style="font-family: 'Inter', sans-serif;">NERMAN.AI</h2>
+                <p class="text-2xl md:text-3xl text-[#157BFF] leading-[1.6]" style="font-family: 'Inter', sans-serif;">
+                    {{ t.mission_subtitle }}</p>
+            </div>
+            <div class="lg:w-1/3 flex justify-center" data-aos="fade-left" data-aos-delay="400">
+                <img src="{% static 'img/about/businessman2.png' %}" alt="Businessman" class="h-auto object-contain"
+                    style="width: 200px; max-height: 400px;">
+            </div>
+        </div>
+
+        <!-- Second Block: Mission Statement -->
+        <div class="flex flex-col md:flex-row-reverse items-center justify-between gap-12 mb-20" data-aos="fade-up"
+            data-aos-delay="100">
+            <div class="lg:w-2/3 bg-white border-2 border-blue-200 rounded-[40px] p-12 md:p-16 shadow-xl"
+                data-aos="fade-left" data-aos-delay="300">
+                <h2 class="text-4xl md:text-5xl font-bold text-[#157BFF] mb-10"
+                    style="font-family: 'Inter', sans-serif;">{{ t.mission_title }}</h2>
+                <p class="text-2xl md:text-3xl text-[#157BFF] leading-[1.6]" style="font-family: 'Inter', sans-serif;">
+                    {{ t.mission_desc }}</p>
+            </div>
+            <div class="lg:w-1/3 flex justify-center relative" data-aos="fade-right" data-aos-delay="500">
+                <div style="width: 300px; min-height: 400px;" class="relative">
+                    <div class="absolute left-0 top-10" style="width: 180px; opacity: 0.2; filter: blur(4px);">
+                        <img src="{% static 'img/about/businessman3.png' %}" alt="Shadow" class="w-full h-auto">
+                    </div>
+                    <img src="{% static 'img/about/businessman1.png' %}" alt="Innovator"
+                        class="relative z-10 w-full h-auto object-contain" style="max-width: 300px;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Third Block: Call to Action -->
+        <div class="flex flex-col md:flex-row items-center justify-between gap-16" data-aos="fade-up"
+            data-aos-delay="200">
+            <div class="lg:w-2/3 bg-white border-2 border-blue-200 rounded-[40px] p-12 md:p-16 shadow-xl"
+                data-aos="fade-right" data-aos-delay="400">
+                <p class="text-2xl md:text-3xl text-[#157BFF] leading-[1.8]" style="font-family: 'Inter', sans-serif;">
+                    {{ t.join_us }}</p>
+            </div>
+            <div class="lg:w-1/3 flex justify-center" data-aos="fade-left" data-aos-delay="600">
+                <img src="{% static 'img/about/businessman3.png' %}" alt="Join Us" class="h-auto object-contain"
+                    style="width: 200px; max-height: 400px;">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section - "О команде" -->
+<section id="team" class="py-24 bg-transparent" data-aos="fade-up">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-16 text-[#157BFF]" data-aos="fade-down" data-aos-delay="100">
+            {{ t.team_title }}
+        </h2>
+
+        <!-- Team Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-[1200px] mx-auto">
+            <!-- Meyrman - CEO & Founder -->
+            <div class="bg-white border-2 border-blue-200 rounded-[24px] p-8 shadow-sm hover:shadow-xl transition-all duration-300 text-center flex flex-col items-center"
+                data-aos="fade-up" data-aos-delay="200">
+                <div class="w-32 h-32 rounded-full border-4 border-[#157BFF] overflow-hidden mb-6">
+                    <img src="{% static 'img/team/meyrman.jpg' %}" alt="Kucherbaev Meyrman"
+                        class="w-full h-full object-cover">
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 mb-1">Kucherbaev Meyrman</h3>
+                <p class="text-[#157BFF] font-medium mb-4">{{ t.team_meyrman_role }}</p>
+                <p class="text-slate-600 text-sm leading-relaxed mb-6">{{ t.team_meyrman_bio }}</p>
+                <div class="flex gap-4 justify-center text-slate-400">
+                    <a href="#" class="hover:text-[#157BFF] transition-colors"><i
+                            class="fa-brands fa-linkedin-in text-lg"></i></a>
+                    <a href="#" class="hover:text-[#157BFF] transition-colors"><i
+                            class="fa-brands fa-twitter text-lg"></i></a>
+                    <a href="#" class="hover:text-[#157BFF] transition-colors"><i
+                            class="fa-brands fa-github text-lg"></i></a>
+                </div>
+            </div>
+
+            <!-- Alibek - UI/UX Designer -->
+            <div class="bg-white border-2 border-blue-200 rounded-[24px] p-8 shadow-sm hover:shadow-xl transition-all duration-300 text-center flex flex-col items-center"
+                data-aos="fade-up" data-aos-delay="300">
+                <div class="w-32 h-32 rounded-full border-4 border-[#157BFF] overflow-hidden mb-6">
+                    <img src="{% static 'img/team/alibek_new.png' %}" alt="Abdusamadov Alibek"
+                        class="w-full h-full object-cover">
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 mb-1">Abdusamadov Alibek</h3>
+                <p class="text-[#157BFF] font-medium mb-4">{{ t.team_alibek_role }}</p>
+                <p class="text-slate-600 text-sm leading-relaxed mb-6">{{ t.team_alibek_bio }}</p>
+                <div class="flex gap-4 justify-center text-slate-400">
+                    <a href="#" class="hover:text-[#157BFF] transition-colors"><i
+                            class="fa-brands fa-linkedin-in text-lg"></i></a>
+                    <a href="#" class="hover:text-[#157BFF] transition-colors"><i
+                            class="fa-brands fa-twitter text-lg"></i></a>
+                    <a href="#" class="hover:text-[#157BFF] transition-colors"><i
+                            class="fa-brands fa-github text-lg"></i></a>
+                </div>
+            </div>
+
+            <!-- Javohir - CTO -->
+            <div class="bg-white border-2 border-blue-200 rounded-[24px] p-8 shadow-sm hover:shadow-xl transition-all duration-300 text-center flex flex-col items-center"
+                data-aos="fade-up" data-aos-delay="400">
+                <div class="w-32 h-32 rounded-full border-4 border-[#157BFF] overflow-hidden mb-6">
+                    <img src="{% static 'img/team/javohir_new.png' %}" alt="Javohir" class="w-full h-full object-cover">
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 mb-1">Javohir</h3>
+                <p class="text-[#157BFF] font-medium mb-4">{{ t.team_javohir_role }}</p>
+                <p class="text-slate-600 text-sm leading-relaxed mb-6">{{ t.team_javohir_bio }}</p>
+                <div class="flex gap-4 justify-center text-slate-400">
+                    <a href="#" class="hover:text-[#157BFF] transition-colors"><i
+                            class="fa-brands fa-linkedin-in text-lg"></i></a>
+                    <a href="#" class="hover:text-[#157BFF] transition-colors"><i
+                            class="fa-brands fa-twitter text-lg"></i></a>
+                    <a href="#" class="hover:text-[#157BFF] transition-colors"><i
+                            class="fa-brands fa-github text-lg"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

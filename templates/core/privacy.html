@@ -1,0 +1,67 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ t.legal_privacy_title }} — NERMAN.AI{% endblock %}
+
+{% block body %}
+<div class="container mx-auto px-4 py-28 max-w-4xl">
+    <div class="text-center mb-16" data-aos="fade-down">
+        <h1 class="text-5xl font-bold font-orbitron">
+            <span class="gradient-text">{{ t.legal_privacy_title }}</span>
+        </h1>
+        <p class="text-slate-400 mt-4">{% if current_lang == 'ru' %}Последнее обновление: 29 мая 2026 г.{% else %}Oxirgi
+            yangilanish: 29 may 2026 yil{% endif %}</p>
+    </div>
+
+    <div class="space-y-6" data-aos="fade-up">
+        <div class="bg-white/70 backdrop-blur-md rounded-[30px] p-10 border-2 border-slate-50 shadow-sm">
+            <h2 class="text-2xl font-bold text-[#157BFF] mb-4 font-orbitron">
+                {% if current_lang == 'ru' %}О конфиденциальности{% else %}Maxfiylik haqida{% endif %}
+            </h2>
+            <p class="text-slate-600 leading-relaxed">
+                {% if current_lang == 'ru' %}Ваша конфиденциальность важна для нас. Политика NERMAN.AI заключается в
+                уважении вашей конфиденциальности в отношении любой информации, которую мы можем собирать у вас на нашем
+                веб-сайте.{% else %}Sizning maxfiyligingiz bizga muhim. NERMAN.AI siyosati veb-saytimizda to'plashimiz
+                mumkin bo'lgan har qanday ma'lumotga nisbatan maxfiyligingizni hurmat qilishdan iborat.{% endif %}
+            </p>
+        </div>
+
+        <div class="bg-white/70 backdrop-blur-md rounded-[30px] p-10 border-2 border-slate-50 shadow-sm">
+            <h2 class="text-2xl font-bold text-[#157BFF] mb-4 font-orbitron">
+                {% if current_lang == 'ru' %}1. Информация, которую мы собираем{% else %}1. Biz to'playdigan
+                ma'lumotlar{% endif %}
+            </h2>
+            <p class="text-slate-600 leading-relaxed">
+                {% if current_lang == 'ru' %}Мы запрашиваем личную информацию только тогда, когда она нам действительно
+                нужна для предоставления вам услуги. Мы собираем ее честными и законными способами, с вашего ведома и
+                согласия.{% else %}Biz faqat xizmat ko'rsatish uchun zarur bo'lganda shaxsiy ma'lumotlarni so'raymiz.
+                Biz ularni sizning bilim va roziligiingiz bilan halol va qonuniy usullar orqali to'playmiz.{% endif %}
+            </p>
+        </div>
+
+        <div class="bg-white/70 backdrop-blur-md rounded-[30px] p-10 border-2 border-slate-50 shadow-sm">
+            <h2 class="text-2xl font-bold text-[#157BFF] mb-4 font-orbitron">
+                {% if current_lang == 'ru' %}2. Хранение данных{% else %}2. Ma'lumotlarni saqlash{% endif %}
+            </h2>
+            <p class="text-slate-600 leading-relaxed">
+                {% if current_lang == 'ru' %}Мы храним собранную информацию только до тех пор, пока это необходимо для
+                предоставления вам запрошенной услуги. Хранимые данные защищены средствами коммерчески приемлемого
+                уровня для предотвращения потери и кражи.{% else %}Biz to'plangan ma'lumotlarni faqat siz so'ragan
+                xizmatni ko'rsatish uchun zarur bo'lgan vaqt davomida saqlaymiz.{% endif %}
+            </p>
+        </div>
+
+        <div class="bg-white/70 backdrop-blur-md rounded-[30px] p-10 border-2 border-slate-50 shadow-sm">
+            <h2 class="text-2xl font-bold text-[#157BFF] mb-4 font-orbitron">
+                {% if current_lang == 'ru' %}3. Файлы cookies{% else %}3. Cookie fayllar{% endif %}
+            </h2>
+            <p class="text-slate-600 leading-relaxed">
+                {% if current_lang == 'ru' %}Мы используем файлы cookie для сбора информации о вашей активности на нашем
+                сайте, чтобы улучшить ваш опыт. Вы можете настроить свой браузер на отказ от всех файлов cookie.{% else
+                %}Biz saytda faoliyatingiz haqida ma'lumot to'plash va tajribangizni yaxshilash uchun cookie fayllardan
+                foydalanamiz.{% endif %}
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
