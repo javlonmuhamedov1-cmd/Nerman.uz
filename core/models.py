@@ -2,15 +2,34 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Profile(models.Model):
+    SUBSCRIPTION_CHOICES = [
+        ('None', 'None'),
+        ('Pro', 'Pro'),
+    ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     nickname = models.CharField(max_length=100, blank=True)
     phone = models.CharField(max_length=20, blank=True)
     avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
     tokens = models.PositiveIntegerField(default=1000)
-    subscription_type = models.CharField(max_length=20, default='Free')
+    subscription_type = models.CharField(max_length=20, choices=SUBSCRIPTION_CHOICES, default='None')
 
     def __str__(self):
         return self.user.username
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.get_or_create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    if hasattr(instance, 'profile'):
+        instance.profile.save()
+    else:
+        Profile.objects.get_or_create(user=instance)
 
 
 class Chat(models.Model):

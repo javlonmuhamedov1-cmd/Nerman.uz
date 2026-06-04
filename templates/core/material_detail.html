@@ -238,9 +238,15 @@
         </div>
     </div>
 
+    {% if user.is_authenticated and user.profile.subscription_type == 'Pro' %}
     <a href="{{ material.image_url }}" download class="download-btn">
         <i class="fa-solid fa-download"></i> Скачать
     </a>
+    {% else %}
+    <a href="https://t.me/kucherbaev_17" target="_blank" class="download-btn">
+        <i class="fa-solid fa-download"></i> Купить PRO для скачивания
+    </a>
+    {% endif %}
 
     <span class="section-label">Рекомендации</span>
     <div class="tags-container">

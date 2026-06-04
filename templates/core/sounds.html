@@ -252,9 +252,15 @@
                 <a href="{% url 'material_detail' mat.id %}" class="sound-btn">
                     <i class="fa-solid fa-play"></i>
                 </a>
+                {% if user.is_authenticated and user.profile.subscription_type == 'Pro' %}
                 <a href="{{ mat.image_url }}" download class="sound-btn">
                     <i class="fa-solid fa-download"></i>
                 </a>
+                {% else %}
+                <a href="https://t.me/kucherbaev_17" target="_blank" class="sound-btn">
+                    <i class="fa-solid fa-download"></i>
+                </a>
+                {% endif %}
             </div>
         </div>
         {% empty %}

@@ -292,9 +292,10 @@
         </div>
     </div>
 
-    <!-- Horizontal Category Scroll (Optional, but kept for UI richness) -->
+    <!-- Horizontal Category Scroll -->
     <div class="cats-scroll">
         {% for cat in all_categories %}
+        {% if cat.slug != 'transitions' and cat.slug != 'backgrounds' and cat.slug != 'sounds' %}
         <a href="?sub={{cat.name}}" class="cat-item {% if active_sub == cat.name %}active{% endif %}">
             <div class="cat-circle {% if active_sub == cat.name %}active{% endif %}">
                 <img src="{% static 'img/categories/' %}{{cat.slug}}.png" alt="{{cat.name}}"
@@ -302,6 +303,7 @@
             </div>
             <div class="cat-name">{{cat.name}}</div>
         </a>
+        {% endif %}
         {% endfor %}
     </div>
 
