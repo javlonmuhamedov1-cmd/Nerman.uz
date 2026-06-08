@@ -1,4 +1,6 @@
 venv/
+# PHP project - not needed for Django deployment
+php_project/
 .env
 __pycache__/
 *.pyc
